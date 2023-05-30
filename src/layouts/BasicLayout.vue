@@ -7,31 +7,30 @@
       id = "navbar"
       title="Title"
       left-text="Back"
-      right-text="Button"
+      right-text="Search"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
   />
   <div id = "content">
-    <template v-if="active === 'index'">
-      <Index/>
 
-    </template>
-    <template v-if="active === 'team'">
-      <Team/>
 
-    </template>
 
-    <template v-if="active === 'setting'">
-      <Setting/>
 
-    </template>
+
   </div>
-  <van-tabbar v-model="active" @change="onChange">
-    <van-tabbar-item icon="home-o" name = "index">Home Page</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" name = "team">Team </van-tabbar-item>
-    <van-tabbar-item icon="setting-o" name = "setting">Setting</van-tabbar-item>
+  <router-view />
+
+  <van-tabbar route>
+    <van-tabbar-item replace to="/" icon="home-o">Home</van-tabbar-item>
+    <van-tabbar-item replace to="/team" icon="friends-o">Team</van-tabbar-item>
+    <van-tabbar-item replace to="/setting" icon="setting-o">Setting</van-tabbar-item>
   </van-tabbar>
+<!--  <van-tabbar v-model="active" @change="onChange">-->
+<!--    <van-tabbar-item icon="home-o" name = "index">Home Page</van-tabbar-item>-->
+<!--    <van-tabbar-item icon="friends-o" name = "team">Team </van-tabbar-item>-->
+<!--    <van-tabbar-item icon="setting-o" name = "setting">Setting</van-tabbar-item>-->
+<!--  </van-tabbar>-->
 
 
 </template>
@@ -42,8 +41,17 @@
   import Setting from "../pages/Setting.vue";
   import { ref } from 'vue';
   import { showToast } from 'vant';
-  const onClickLeft = () => alert("left");
-  const onClickRight = () => alert("right");
+  import {useRouter} from "vue-router";
+  const onClickLeft = () => {
+    router.back();
+  };
+
+
+  const router = useRouter();
+  const onClickRight = () => {
+    router.push("/search");
+
+  };
 
   const active = ref(0);
   const onChange = (index) => showToast(`Tab ${index}`);
