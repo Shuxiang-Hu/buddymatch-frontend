@@ -12,19 +12,19 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
   />
-  <div id = "content">
+  <div id = "content" style = "padding-bottom: 30px">
 
 
 
-
+    <router-view />
 
   </div>
-  <router-view />
 
-  <van-tabbar route>
-    <van-tabbar-item replace to="/" icon="home-o">Home</van-tabbar-item>
-    <van-tabbar-item replace to="/team" icon="friends-o">Team</van-tabbar-item>
-    <van-tabbar-item replace to="/setting" icon="setting-o">Setting</van-tabbar-item>
+
+  <van-tabbar route >
+    <van-tabbar-item replace to="/" icon="home-o">主页</van-tabbar-item>
+    <van-tabbar-item replace to="/team" icon="friends-o">个人</van-tabbar-item>
+    <van-tabbar-item replace to="/setting" icon="setting-o">设置</van-tabbar-item>
   </van-tabbar>
 <!--  <van-tabbar v-model="active" @change="onChange">-->
 <!--    <van-tabbar-item icon="home-o" name = "index">Home Page</van-tabbar-item>-->
@@ -61,4 +61,7 @@
 #navbar{
   min-width: 340px;
 }
+
+
+
 </style>

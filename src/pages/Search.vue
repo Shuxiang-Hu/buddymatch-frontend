@@ -18,14 +18,17 @@
   <van-tree-select
       v-model:active-id="activeId"
       v-model:main-active-index="activeIndex"
-      :items="items"
+      :items="tags"
   />
-
+  <van-button block type = "primary" @click="doSearch()" style="margin-top: 10px">
+    Search
+  </van-button>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { showToast } from 'vant';
+import {useRouter} from "vue-router";
 
 
 const value = ref('');
@@ -44,29 +47,35 @@ const onCancel = () => showToast('Cancel');
 
 
 
+
     const activeId = ref([]);
     const activeIndex = ref(0);
-    const items = [
+    const tags = [
       {
-        text: 'Group 1',
+        text: '性别',
         children: [
-          { text: 'Delaware', id: 1 },
-          { text: 'Florida', id: 2 },
-          { text: 'Georqia', id: 3, disabled: true },
+          { text: '男', id: '男' },
+          { text: '女', id: '女' },
         ],
       },
       {
-        text: 'Group 2',
+        text: '编程语言',
         children: [
-          { text: 'Alabama', id: 4 },
-          { text: 'Kansas', id: 5 },
-          { text: 'Louisiana', id: 6 },
+          { text: 'Java', id:'Java' },
+          { text: 'python', id: 'python' },
+          { text: 'C++', id: 'C++' },
         ],
       },
-      { text: 'Group 3', disabled: true },
     ];
 
-
+  const router  = useRouter();
+  const doSearch = ()=>{
+    router.push({
+      path : "user/list",
+      query : {tags: activeId.value}
+    });
+    console.log(activeId.value)
+  }
 
 </script>
 

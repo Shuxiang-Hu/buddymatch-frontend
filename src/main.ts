@@ -10,7 +10,9 @@ import { Cascader } from 'vant';
 import { TreeSelect } from 'vant';
 import { Cell, CellGroup } from 'vant';
 import { Form, Field} from 'vant';
-
+import { Card } from 'vant';
+import { Empty } from 'vant';
+import axios from "axios";
 const router = VueRouter.createRouter({
     // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: VueRouter.createWebHashHistory(),
@@ -18,10 +20,11 @@ const router = VueRouter.createRouter({
 })
 
 
-const app  = createApp(App)
-app.use(Cell)
-app.use(CellGroup)
+const app  = createApp(App);
+app.use(Cell);
+app.use(CellGroup);
 app.use(Button);
+app.use(Empty);
 app.use(NavBar);
 app.use(Tabbar);
 app.use(Search);
@@ -30,8 +33,9 @@ app.use(Cascader);
 app.use(TreeSelect);
 app.use(Form)
 app.use(Field)
-app.use(router)
-app.mount('#app')
+app.use(Card);
+app.use(router);
+app.mount('#app');
 
 
 

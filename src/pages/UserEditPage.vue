@@ -22,19 +22,40 @@
 <script setup>
 
     import {ref} from "vue";
-    import {useRoute} from "vue-router";
+    import {useRoute, useRouter} from "vue-router";
+    import bm_axios from "../plugin/buddymatch-axios.ts";
+    import {showFailToast, showSuccessToast} from "vant";
 
 
+
+    const router = useRouter();
     const route = useRoute();
     const editUser = ref({
       editKey : route.query.editKey,
       editName : route.query.editName,
-      currentVal : route.query.editVal
+      currentVal : route.query.editVal,
+      userId: route.query.editId
     });
 
-    const onSubmit = (values) => {
-      console.log('submit', values);
-      console.log(route.query.editKey)
+    const onSubmit = async () => {
+
+      const res = await bm_axios.post('/user/update', {
+        'id': editUser.value.userId,
+        [editUser.value.editKey] : editUser.value.currentVal,
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      console.log(res)
+      if(res.code === 0){
+        showSuccessToast("信息修改成功");
+        await router.replace("/");
+      }else {
+        showFailToast("信息修改失败");
+      }
+
     };
 
 
