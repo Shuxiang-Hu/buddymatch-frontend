@@ -18,6 +18,11 @@ bm_axios.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 bm_axios.interceptors.response.use(function (response) {
+    //如果用户未登录
+    if(response?.data?.code === 40100){
+        const redirectURL = window.location.href
+        window.location.href = `/user/login?redirect=${redirectURL}`;
+    }
     // 对响应数据做点什么
     return response.data;
 }, function (error) {

@@ -9,14 +9,9 @@
           @cancel="onCancel"
       />
     </form>
-    <van-tabs v-model:active="activeName" @change = "onTabChange(activeName)">
-      <van-tab title="公开" name="public"></van-tab>
-      <van-tab title="加密" name="private"></van-tab>
-    </van-tabs>
+    <van-button type = "primary" @click = "doJoinTeam">加入队伍</van-button>
     <team-card-list :team-list="teamList"></team-card-list>
-
     <van-empty v-if="teamList?.length < 1" description="数据为空"/>
-    <van-button class="add-button" type="primary" icon="plus" @click="doAddTeam" />
   </div>
 </template>
 
@@ -31,7 +26,7 @@ import bm_axios from "../plugin/buddymatch-axios";
 
 const router  = useRouter();
 
-const doAddTeam = () =>{
+const doJoinTeam = () =>{
   router.push(
       {
         path:"/team/add"
@@ -41,7 +36,6 @@ const doAddTeam = () =>{
 
 const teamList = ref([]);
 const searchText = ref('');
-const activeName = ref('a');
 // 页面加载时只触发一次
 onMounted( () => {
   listTeam();
@@ -51,13 +45,6 @@ const onSearch = (val) => {
   listTeam(val);
 };
 
-const onTabChange = (name) =>{
-  if(name === 'public'){
-    listTeam(searchText.value,0)
-  }else{
-    listTeam(searchText.value,2)
-  }
-}
 
 /**
  * 搜索队伍
@@ -65,12 +52,11 @@ const onTabChange = (name) =>{
  * @param status
  * @returns {Promise<void>}
  */
-const listTeam = async (val = '', status = 0) => {
-  const res = await bm_axios.get("/team/list", {
+const listTeam = async (val = '') => {
+  const res = await bm_axios.get("/team/list/my/join", {
     params: {
       searchText: val,
       pageNum: 1,
-      status,
     },
   });
   if (res?.code === 0) {

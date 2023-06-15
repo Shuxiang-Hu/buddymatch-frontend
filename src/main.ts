@@ -12,19 +12,37 @@ import { Cell, CellGroup } from 'vant';
 import { Form, Field} from 'vant';
 import { Card } from 'vant';
 import { Empty } from 'vant';
-import axios from "axios";
+import { DatePicker } from 'vant';
+import { Switch } from 'vant';
+import { Dialog } from 'vant';
+import {
+    Skeleton,
+    SkeletonTitle,
+    SkeletonImage,
+    SkeletonAvatar,
+    SkeletonParagraph,
+} from 'vant';
+
+
 const router = VueRouter.createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
-    history: VueRouter.createWebHashHistory(),
+    history: VueRouter.createWebHistory(),
     routes, // `routes: routes` 的缩写
 })
 
 
+
+
+
+
+
 const app  = createApp(App);
+app.use(DatePicker);
+app.use(Dialog);
 app.use(Cell);
 app.use(CellGroup);
 app.use(Button);
 app.use(Empty);
+app.use(Search);
 app.use(NavBar);
 app.use(Tabbar);
 app.use(Search);
@@ -33,8 +51,14 @@ app.use(Cascader);
 app.use(TreeSelect);
 app.use(Form)
 app.use(Field)
+app.use(Switch);
 app.use(Card);
 app.use(router);
+app.use(Skeleton);
+app.use(SkeletonTitle);
+app.use(SkeletonImage);
+app.use(SkeletonAvatar);
+app.use(SkeletonParagraph);
 app.mount('#app');
 
 

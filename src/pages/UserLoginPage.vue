@@ -6,7 +6,7 @@
           name="userAccount"
           label="账号"
           placeholder="请输入账号"
-          :rules="[{ required: true, message: 'Username is required' }]"
+          :rules="[{ required: true, message: '请输入用户名' }]"
       />
       <van-field
           v-model="password"
@@ -14,7 +14,7 @@
           name="userPassword"
           label="密码"
           placeholder="请输入密码"
-          :rules="[{ required: true, message: 'Password is required' }]"
+          :rules="[{ required: true, message: '请输入密码' }]"
       />
     </van-cell-group>
     <div style="margin: 16px;">
@@ -28,17 +28,14 @@
 
 <script setup lang="ts">
 
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import bm_axios from "../plugin/buddymatch-axios.ts";
-import {Toast} from "vant";
-import { showSuccessToast, showFailToast } from 'vant';
+import {showFailToast, showSuccessToast} from 'vant';
 
 
 const router = useRouter()
-
-
-
+const route = useRoute()
 const userAccount= ref('');
 const password = ref('');
 const onSubmit = async () => {
@@ -51,10 +48,10 @@ const onSubmit = async () => {
   )
 
 
-  console.log(res);
+
   if(res.code  === 0 && res.data){
     showSuccessToast("登录成功");
-    await router.replace('/');
+    window.location.href = route.query?.redirect as string ?? '/';
   }else{
     showFailToast("登录失败");
   }
